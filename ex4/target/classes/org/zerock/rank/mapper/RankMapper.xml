@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace="package + interface" -->
+<mapper namespace="org.zerock.rank.mapper.RankMapper">
+	<!-- 1. 게시판 목록 -->
+	<!-- id="method" -->
+	<select id="list" resultType="org.zerock.rank.vo.RankVO">
+		SELECT RNUM, NO, ID, SCORE, TESTDATE, LEV
+		FROM(	
+			SELECT ROWNUM RNUM, NO, ID, SCORE, TESTDATE, LEV
+			FROM(	
+				SELECT NO, ID, SCORE, TESTDATE, LEV
+				FROM RANK 
+				<include refid="search" />
+				WHERE LEV = #{lev}
+				ORDER BY SCORE DESC, testDate asc
+				)
+			)
+			WHERE rnum BETWEEN 1 AND 10
+	</select>
+	
+	<!-- 1-1. 게시판 전체글의 갯수 -->
+<!-- 	<select id="getTotalRow" resultType="java.lang.Long"> -->
+<!-- 		select count(*) from rank -->
+<!-- 	</select> -->
+<!-- 	<select id="month" resultType="string"> -->
+<!-- 		select * from (select id, score, testDate, rank() over(order by score desc) -->
+<!-- 		as count from rank  -->
+<!-- 		<if test=""> -->
+<!-- 			where testDate &gt;= '2021-4-1' and testDate &lt;= Last_day('2021-4-1') -->
+<!-- 		</if> -->
+<!-- 		) where count &lt;= 10 -->
+<!-- 	</select> -->
+	
+	
+<sql id="search">
+	<!-- mybatis에서는 데이터 자동변환을 한다. 글자가 한 자이면 char -->
+	<if test="word != null and word != ''.toString()">
+		<!-- 검색하는 데이터가 있는 경우 where가 나온다. -->
+		where 1 = 0
+		<!-- 't','c','w' -> .toString() 추가 / 두 개 이상은 x -->
+		<if test="key == 't'.toString()">
+			<!-- #{word}만 있으면 제목이나 내용 전체를 검색해야 되므로 앞뒤로 %를 붙여줘야 부분 검색 가능 -->
+			OR id like '%' || #{word} || '%'
+		</if>
+	</if>	
+</sql>
+	
+<!-- 	<select id="imageList" resultType="org.zerock.image.vo.ImageVO"> -->
+<!-- 		select rnum, no, title, id, writeDate, fileName -->
+<!-- 		from( -->
+<!-- 			select rownum rnum, no, title, id, writeDate, fileName -->
+<!-- 			from( -->
+<!-- 				select no, title, id, writeDate, fileName -->
+<!-- 				from image -->
+<!-- 			order by no desc -->
+<!-- 			) -->
+<!-- 		) -->
+<!-- 		where rnum between #{startRow} and #{endRow} -->
+<!-- 	</select> -->
+</mapper>

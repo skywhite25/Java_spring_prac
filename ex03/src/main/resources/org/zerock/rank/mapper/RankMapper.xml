@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace="package + interface" -->
+<mapper namespace="org.zerock.rank.mapper.RankMapper">
+	<!-- 1. 게시판 목록 -->
+	<!-- id="method" -->
+	<select id="list" resultType="org.zerock.rank.vo.RankVO">
+		select rnum, no, id, score, testDate
+		from(	
+			select rownum rnum, no, id, score, testDate
+			from(	
+				select no, id, score, testDate
+				from rank
+				
+				order by score desc
+				)
+			)
+<!-- 			where rnum between #{startRow} and #{endRow}	 -->
+	</select>
+	
+	
+	<!-- 1-1. 게시판 전체글의 갯수 -->
+	<select id="getTotalRow" resultType="java.lang.Long">
+		select count(*) from rank
+	</select>
+	
+	<select id="image_gallery" resultType="org.zerock.image.vo.ImageVO">
+		select rnum, no, title, id, writeDate, fileName
+		from(
+			select rownum rnum, no, title, id, writeDate, fileName
+			from(
+				select no, title, id, writeDate, fileName
+				from image
+	
+			order by no desc
+			)
+		)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+</mapper>

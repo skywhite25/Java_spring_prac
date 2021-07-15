@@ -1,0 +1,23 @@
+package com.mcbt.board.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import com.mcbt.board.vo.ReplyVO;
+
+public interface ReplyMapper {
+
+	// 1. 게시글 전체 목록 ==> 검색옵션, 키워드 매개변수 추가
+	public List<ReplyVO> list(Map<String, Object> map);
+	public int getTotalRow(Integer no);
+
+	// 2. 게시판 보기
+	public ReplyVO view(Long rno);
+	// 3. 게시글 작성
+	public int write(ReplyVO vo);
+	// 4. 게시글 수정
+	public int update(ReplyVO vo);
+	// 5. 게시글 삭제
+	public int delete(ReplyVO vo);
+	
+}

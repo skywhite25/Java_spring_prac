@@ -1,0 +1,27 @@
+package com.mcbt.member.service;
+
+
+import java.util.List;
+
+import com.mcbt.member.vo.LoginVO;
+import com.mcbt.member.vo.MemberVO;
+import com.mcbt.member.vo.WriteVO;
+import com.webjjang.util.PageObject;
+
+public interface MemberService  {
+
+	//리스트 
+	public List<MemberVO> list() throws Exception;
+	
+	//로그인
+	
+	public LoginVO login(LoginVO vo) throws Exception;
+
+	//회원가입
+	//3. 게시판 글쓰기
+	public int write(WriteVO vo) throws Exception;
+	
+	//회원 삭제
+	 
+
+}
