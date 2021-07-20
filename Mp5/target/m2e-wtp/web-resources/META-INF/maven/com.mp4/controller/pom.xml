@@ -2,19 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.mcbt</groupId>
+	<groupId>com.mp4</groupId>
 	<artifactId>controller</artifactId>
-	<name>teamMCBT</name>
+	<name>Mp4</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
-		<properties>
+	<properties>
 		<junit-version>4.12</junit-version>
 		<java-version>1.8</java-version>
 		<org.springframework-version>5.0.7.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.9.0</org.aspectj-version>
 		<org.slf4j-version>1.7.25</org.slf4j-version>
-		<!-- project 절대 위치를 property로 설정 -->
-		<project.basedir>F:/Download/workspace/spring/teamMCBT</project.basedir>
+		<!-- project 절대 위치를 property로 설정 추가 - 본인의 위치 -->
+		<project.basedir>F:/workspace/spring/Mp5</project.basedir>	
 	</properties>
 	<dependencies>
 		<!-- Spring -->
@@ -42,8 +42,7 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>
-		
-		<!-- AspectJ -->
+
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
@@ -127,7 +126,16 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- DB 관련 라이브러리 -->
+		<!-- 페이지 처리 -->
+		<dependency> 
+			<groupId>com.webjjang</groupId>
+			<artifactId>util.PageObject</artifactId>
+			<version>2.5</version>
+			<scope>system</scope>
+		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/pageObject.jar</systemPath>
+		</dependency>
+
+		<!-- DB 관련 -->
 		<!-- 오라클 드라이버 : maven.org에 새롭게 등록이 되어 있다. -->
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
@@ -149,7 +157,7 @@
 			<version>3.4.6</version>
 		</dependency>
 
-		<!-- MyBatis와 Spring 연계 -->
+		<!-- MyBatis 와 Spring 연계 -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
@@ -170,26 +178,26 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
-		<!-- GSON 데이터 처리 - JAVA 직접 JSON 데이터 변경 -->
-		<dependency>
-			<groupId>org.immutables</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.8.6</version>
-		</dependency>
-
 		<!-- JSON 데이터 처리 -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.9.4</version>
+			<version>2.9.6</version>
 		</dependency>
 
-		<!-- XML 데이터 처리 -->
+		<!-- GSON 데이터 처리 - JAVA 직접 JSON데이터 변경 -->
 		<dependency>
-			<groupId>com.fasterxml.jackson.dataformat</groupId>
-			<artifactId>jackson-dataformat-xml</artifactId>
-			<version>2.9.4</version>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.6</version>
 		</dependency>
+
+<!-- 		XML 데이터 처리 -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.fasterxml.jackson.dataformat</groupId> -->
+<!-- 			<artifactId>jackson-dataformat-xml</artifactId> -->
+<!-- 			<version>2.9.6</version> -->
+<!-- 		</dependency> -->
 
 		<!-- 파일 업로드 -->
 		<dependency>
@@ -199,23 +207,21 @@
 		</dependency>
 
 		<!-- 페이지 처리 -->
-		<dependency> 
-			<groupId>com.webjjang</groupId>
-			<artifactId>util.PageObject</artifactId>
-			<version>2.5</version>
-			<scope>system</scope>
-		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/pageObject.jar</systemPath>
-		</dependency>
-
-		<!-- 전체 레이아웃 잡기 -->
+		<!-- sitemesh : 전체 레이아웃 잡기 -->
 		<dependency>
 			<groupId>opensymphony</groupId>
 			<artifactId>sitemesh</artifactId>
 			<version>2.4.2</version>
 		</dependency>
 
-		<!-- scpring 트렌젝션 처리 : coomit, rollback -->
+		<!-- 메일 api -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.2</version>
+		</dependency>
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
